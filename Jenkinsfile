@@ -6,13 +6,13 @@ pipeline {
     stages {
         stage('Build Application') { 
             steps {
-                echo '=== Building Petclinic Application ==='
+                echo '=== Building Demo Application ==='
                 sh 'mvn -B -DskipTests clean package' 
             }
         }
         stage('Test Application') {
             steps {
-                echo '=== Testing Petclinic Application ==='
+                echo '=== Testing Demo Application ==='
                 sh 'mvn test'
             }
             post {
@@ -26,9 +26,9 @@ pipeline {
                 branch 'master'
             }
             steps {
-                echo '=== Building Petclinic Docker Image ==='
+                echo '=== Building Demo Docker Image ==='
                 script {
-                    app = docker.build("ibuchh/petclinic-spinnaker-jenkins")
+                    app = docker.build("prasadadireddi/awsdemo-spinnaker-jenkins")
                 }
             }
         }
@@ -51,8 +51,8 @@ pipeline {
         stage('Remove local images') {
             steps {
                 echo '=== Delete the local docker images ==='
-                sh("docker rmi -f ibuchh/petclinic-spinnaker-jenkins:latest || :")
-                sh("docker rmi -f ibuchh/petclinic-spinnaker-jenkins:$SHORT_COMMIT || :")
+                sh("docker rmi -f ibuchh/awsdemo-spinnaker-jenkins:latest || :")
+                sh("docker rmi -f ibuchh/awsdemo-spinnaker-jenkins:$SHORT_COMMIT || :")
             }
         }
     }
