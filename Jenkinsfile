@@ -4,13 +4,13 @@ pipeline {
         pollSCM "* * * * *"
        }
     stages {
-        stage('Build Application') { 
+        stage('Build AWS Demo Application') { 
             steps {
                 echo '=== Building Demo Application ==='
                 sh 'mvn -B -DskipTests clean package' 
             }
         }
-        stage('Test Application') {
+        stage('Test AWS Demo Application') {
             steps {
                 echo '=== Testing Demo Application ==='
                 sh 'mvn test'
